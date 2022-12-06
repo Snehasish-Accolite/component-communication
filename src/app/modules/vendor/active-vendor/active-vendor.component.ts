@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { VendorModel } from '../vendor';
+import { VendorService } from '../vendor.service';
 
 @Component({
   selector: 'app-active-vendor',
@@ -9,7 +10,7 @@ import { VendorModel } from '../vendor';
 export class ActiveVendorComponent implements OnInit {
 
   @Input('parentData') public vendors: any;
-  constructor() { }
+  constructor(private vendService: VendorService) { }
 
   ngOnInit(): void {
   }
@@ -18,8 +19,10 @@ export class ActiveVendorComponent implements OnInit {
   onSelect(vendor: VendorModel): void{
       this.selectedVendor = vendor;
       this.childEvent.emit(this.selectedVendor);
-        
+      this.vendService.putDataToStream(this.selectedVendor);   
   }
 
-
 }
+
+
+
